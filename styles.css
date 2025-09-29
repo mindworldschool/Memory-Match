@@ -1,5 +1,5 @@
 
-:root{
+:root{--base-font:clamp(16px,2.2vw,36px);
   --brand-ivory:#FDF8F3;
   --brand-warm-gold:#B68E6B;
   --brand-coral:#E8654B;
@@ -8,9 +8,11 @@
   --frame-gap:24px;
   --topbar:calc(var(--frame-gap)*6);
 }
+body{margin:0;height:100%;font-size:var(--base-font);font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", "Helvetica Neue", Arial, sans-serif;background:var(--frame-orange);color:#333;}
+
 *{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--frame-orange);color:#333}
+html,
+
 .header{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;height:var(--topbar);padding:0 12px}
 .header img{height:calc(var(--topbar)*0.8)}
 .header .title{flex:1;text-align:center;font-weight:800;color:#fff;letter-spacing:.5px;font-size:calc(var(--topbar)*0.7);line-height:var(--topbar)}
