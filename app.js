@@ -79,18 +79,397 @@ async function startGame(){
 
 
 // Fallback inline lists for file://
-const INLINE_IMAGES = ["bear", "bee", "cat", "crocodile", "goat", "hare", "hedgehog", "leopard", "lion", "panda", "parrot", "penguin", "rabbit", "stork", "turtle", "zebra"];
-const INLINE_WORDS = ["airport", "apple", "baby", "bag", "banana", "bathroom", "bear", "bed", "bike", "bird", "board", "boat", "book", "boots", "boy", "bread", "bridge", "brother", "bus", "car", "cat", "chair", "cheese", "chicken", "child", "clock", "cloud", "coat", "computer", "cow", "cup", "desk", "dog", "door", "dress", "egg", "elephant", "family", "father", "fire", "fish", "flower", "fridge", "friend", "frog", "garden", "girl", "gloves", "hat", "horse", "house", "jacket", "juice", "kitchen", "lamp", "lion", "man", "map", "meat", "metro", "milk", "monkey", "moon", "mother", "mountain", "notebook", "orange", "paper", "pasta", "pen", "pencil", "people", "phone", "picture", "pig", "plane", "plate", "rabbit", "rain", "rice", "river", "road", "room", "ruler", "scarf", "school", "sea", "sheep", "ship", "shirt", "shoes", "shorts", "sister", "skirt", "sky", "snow", "socks", "sofa", "soup", "spoon", "star", "station", "street", "student", "sun", "sweater", "t-shirt", "table", "taxi", "teacher", "tiger", "train", "tree", "trousers", "truck", "water", "wind", "window", "woman"];
+const INLINE_IMAGES = ["airport",
+  "apple",
+  "armchair",
+  "baby",
+  "bag",
+  "ball",
+  "banana",
+  "bathroom",
+  "bear",
+  "bed",
+  "bee",
+  "bike",
+  "bird",
+  "board",
+  "boat",
+  "book",
+  "boots",
+  "box",
+  "boy",
+  "bread",
+  "bridge",
+  "bus",
+  "cake",
+  "camel",
+  "car",
+  "carrot",
+  "cat",
+  "chair",
+  "cheese",
+  "chicken",
+  "child",
+  "childboy",
+  "children",
+  "climbingframe",
+  "cloud",
+  "clown",
+  "coat",
+  "computer",
+  "cow",
+  "crown",
+  "cup",
+  "dancer",
+  "dog",
+  "doll",
+  "door",
+  "dress",
+  "drums",
+  "duck",
+  "egg",
+  "elephant",
+  "family",
+  "fire",
+  "fireman",
+  "fish",
+  "fishh",
+  "flower",
+  "fridge",
+  "frog",
+  "garden",
+  "gglass",
+  "girafe",
+  "girl",
+  "glass",
+  "glass_of_juic",
+  "glass_of_milk",
+  "gloves",
+  "goat",
+  "grandma",
+  "grandpa",
+  "grapes",
+  "guitar",
+  "hare",
+  "hat",
+  "hedgehog",
+  "hippo",
+  "horse",
+  "house",
+  "housee",
+  "jacket",
+  "kangaroo",
+  "king",
+  "kitchen",
+  "lamp",
+  "laptop",
+  "leopard",
+  "lion",
+  "lion_simba",
+  "man",
+  "meat",
+  "mobile",
+  "monkey",
+  "monkeyy",
+  "moon",
+  "mountain",
+  "mouse",
+  "objec",
+  "octopus",
+  "orange",
+  "park",
+  "parrot",
+  "pasta",
+  "pen",
+  "pencil",
+  "penguin",
+  "people",
+  "pig",
+  "pizza",
+  "plane",
+  "plate",
+  "platee",
+  "police",
+  "potato",
+  "pplate",
+  "queen",
+  "rabbit",
+  "rabbitt",
+  "rain",
+  "rainbow",
+  "rhino",
+  "river",
+  "road",
+  "ruler",
+  "scarf",
+  "school",
+  "schooll",
+  "sea",
+  "shark",
+  "sheep",
+  "ship",
+  "shirt",
+  "shoes",
+  "shorts",
+  "skirt",
+  "sky",
+  "slide",
+  "snow",
+  "socks",
+  "sofa",
+  "sofaa",
+  "soup",
+  "spoon",
+  "spoonn",
+  "squarrel",
+  "star",
+  "station",
+  "street",
+  "student",
+  "sun",
+  "sunglasses",
+  "swan",
+  "sweater",
+  "swing",
+  "t-shirt",
+  "table",
+  "taxi",
+  "teacher",
+  "ticket",
+  "tiger",
+  "tomato",
+  "tortule",
+  "toucan",
+  "train",
+  "tree",
+  "truck",
+  "trumpet",
+  "umbrella",
+  "violin",
+  "watch",
+  "watermelon",
+  "whale",
+  "wind",
+  "window",
+  "wolf",
+  "woman",
+  "womanshoes",
+  "zebra",
+  "zebraa",
+  "zzebra"
+];
+const INLINE_WORDS = ["airport",
+  "apple", "armchair", "baby", "bag", "ball", "banana", "bathroom", "bear",
+  "bed", "bee", "bike", "bird", "board", "boat", "book", "boots", "box",
+  "boy", "bread", "bridge", "bus", "cake", "camel", "car", "carrot", "cat",
+  "chair", "cheese", "chicken", "child", "children", "cloud", "clown",
+  "coat", "computer", "cow", "crown", "cup", "dancer", "dog", "doll",
+  "door", "dress", "drums", "duck", "egg", "elephant", "family", "fire",
+  "fireman", "fish", "flower", "fridge", "frog", "garden", "girafe",
+  "girl", "glass", "gloves", "goat", "grapes", "guitar", "hare", "hat",
+  "hedgehog", "hippo", "horse", "house", "jacket", "kangaroo", "king",
+  "kitchen", "lamp", "laptop", "leopard", "lion", "man", "meat", "mobile",
+  "monkey", "moon", "mountain", "mouse", "octopus", "orange", "park",
+  "parrot", "pasta", "pen", "pencil", "penguin", "people", "pig", "pizza",
+  "plane", "plate", "police", "potato", "queen", "rabbit", "rain", "rainbow",
+  "rhino", "river", "road", "ruler", "scarf", "school", "sea", "shark",
+  "sheep", "ship", "shirt", "shoes", "shorts", "skirt", "sky", "slide",
+  "snow", "socks", "sofa", "soup", "spoon", "squarrel", "star", "station",
+  "street", "student", "sun", "swan", "sweater", "swing", "t-shirt",
+  "table", "taxi", "teacher", "ticket", "tiger", "tomato", "tortule",
+  "toucan", "train", "tree", "truck", "trumpet", "umbrella", "violin",
+  "watch", "watermelon", "whale", "wind", "window", "wolf", "woman",
+  "zebra"
+];
 
 const FALLBACK = {
-  imageIds: ["bear", "bee", "cat", "crocodile", "goat", "hare", "hedgehog", "leopard", "lion", "panda", "parrot", "penguin", "rabbit", "stork", "turtle", "zebra"],
+  imageIds: ["airport",
+  "apple",
+  "armchair",
+  "baby",
+  "bag",
+  "ball",
+  "banana",
+  "bathroom",
+  "bear",
+  "bed",
+  "bee",
+  "bike",
+  "bird",
+  "board",
+  "boat",
+  "book",
+  "boots",
+  "box",
+  "boy",
+  "bread",
+  "bridge",
+  "bus",
+  "cake",
+  "camel",
+  "car",
+  "carrot",
+  "cat",
+  "chair",
+  "cheese",
+  "chicken",
+  "child",
+  "childboy",
+  "children",
+  "climbingframe",
+  "cloud",
+  "clown",
+  "coat",
+  "computer",
+  "cow",
+  "crown",
+  "cup",
+  "dancer",
+  "dog",
+  "doll",
+  "door",
+  "dress",
+  "drums",
+  "duck",
+  "egg",
+  "elephant",
+  "family",
+  "fire",
+  "fireman",
+  "fish",
+  "fishh",
+  "flower",
+  "fridge",
+  "frog",
+  "garden",
+  "gglass",
+  "girafe",
+  "girl",
+  "glass",
+  "glass_of_juic",
+  "glass_of_milk",
+  "gloves",
+  "goat",
+  "grandma",
+  "grandpa",
+  "grapes",
+  "guitar",
+  "hare",
+  "hat",
+  "hedgehog",
+  "hippo",
+  "horse",
+  "house",
+  "housee",
+  "jacket",
+  "kangaroo",
+  "king",
+  "kitchen",
+  "lamp",
+  "laptop",
+  "leopard",
+  "lion",
+  "lion_simba",
+  "man",
+  "meat",
+  "mobile",
+  "monkey",
+  "monkeyy",
+  "moon",
+  "mountain",
+  "mouse",
+  "objec",
+  "octopus",
+  "orange",
+  "park",
+  "parrot",
+  "pasta",
+  "pen",
+  "pencil",
+  "penguin",
+  "people",
+  "pig",
+  "pizza",
+  "plane",
+  "plate",
+  "platee",
+  "police",
+  "potato",
+  "pplate",
+  "queen",
+  "rabbit",
+  "rabbitt",
+  "rain",
+  "rainbow",
+  "rhino",
+  "river",
+  "road",
+  "ruler",
+  "scarf",
+  "school",
+  "schooll",
+  "sea",
+  "shark",
+  "sheep",
+  "ship",
+  "shirt",
+  "shoes",
+  "shorts",
+  "skirt",
+  "sky",
+  "slide",
+  "snow",
+  "socks",
+  "sofa",
+  "sofaa",
+  "soup",
+  "spoon",
+  "spoonn",
+  "squarrel",
+  "star",
+  "station",
+  "street",
+  "student",
+  "sun",
+  "sunglasses",
+  "swan",
+  "sweater",
+  "swing",
+  "t-shirt",
+  "table",
+  "taxi",
+  "teacher",
+  "ticket",
+  "tiger",
+  "tomato",
+  "tortule",
+  "toucan",
+  "train",
+  "tree",
+  "truck",
+  "trumpet",
+  "umbrella",
+  "violin",
+  "watch",
+  "watermelon",
+  "whale",
+  "wind",
+  "window",
+  "wolf",
+  "woman",
+  "womanshoes",
+  "zebra",
+  "zebraa",
+  "zzebra"
+],
   words: ["airport", "apple", "baby", "bag", "banana", "bathroom", "bear", "bed", "bike", "bird", "board", "boat", "book", "boots", "boy", "bread", "bridge", "brother", "bus", "car", "cat", "chair", "cheese", "chicken", "child", "clock", "cloud", "coat", "computer", "cow", "cup", "desk", "dog", "door", "dress", "egg", "elephant", "family", "father", "fire", "fish", "flower", "fridge", "friend", "frog", "garden", "girl", "gloves", "hat", "horse", "house", "jacket", "juice", "kitchen", "lamp", "lion", "man", "map", "meat", "metro", "milk", "monkey", "moon", "mother", "mountain", "notebook", "orange", "paper", "pasta", "pen", "pencil", "people", "phone", "picture", "pig", "plane", "plate", "rabbit", "rain", "rice", "river", "road", "room", "ruler", "scarf", "school", "sea", "sheep", "ship", "shirt", "shoes", "shorts", "sister", "skirt", "sky", "snow", "socks", "sofa", "soup", "spoon", "star", "station", "street", "student", "sun", "sweater", "t-shirt", "table", "taxi", "teacher", "tiger", "train", "tree", "trousers", "truck", "water", "wind", "window", "woman"]
 };
 
 const ASSETS = {
   imagesIndexUrl: "assets/images/images.json",
   wordsUrl: "assets/words/words.json",
-  imagePath: (id)=>`assets/images/${id}.png`
+  imagePath: (id)=>`assets/images/${id}.png`,
+  wordPath:  (id)=>`assets/words/${id}.png`
 };
 // ---- Sounds (final screen) ----
 const SOUNDS = {
@@ -143,14 +522,21 @@ function createElement(tag, props={}, children){
   return el;
 }
 
-function renderCard(card){
-  if(card.type === "img"){
-    return createElement("img",{src: ASSETS.imagePath(card.value), alt: card.value});
-  } else {
-    return createElement("div",{class:"word"}, card.value);
+function renderCard(el, card){
+  if(!card){
+    el.innerHTML = '';
+    return;
+  }
+  if (card.type === 'img'){
+    el.innerHTML = `<img src="${ASSETS.imagePath(card.value)}" alt="${card.value}">`;
+  } else if (card.type === 'word'){
+    el.innerHTML = `<img src="${ASSETS.wordPath(card.value)}" alt="${card.value}">`;
   }
 }
-function renderFrame(targetEl, card){ targetEl.innerHTML = ""; if(card) targetEl.appendChild(renderCard(card)); }
+function renderFrame(targetEl, card){
+  targetEl.innerHTML = "";
+  if (card) renderCard(targetEl, card);
+}
 
 // Fit helpers
 function computeFitFontSize(el, frame){
@@ -165,7 +551,7 @@ function computeFitFontSize(el, frame){
     const ok = el.scrollWidth <= maxW && el.scrollHeight <= maxH;
     if(ok) lo = mid; else hi = mid-1;
   }
-  return lo;
+   return Math.floor(lo * 0.9);
 }
 function applyEqualWordSize(leftWordEl, leftFrame, rightWordEl, rightFrame){
   const fsL = computeFitFontSize(leftWordEl, leftFrame);
@@ -222,23 +608,40 @@ function makeDerangement(list){
 
 function buildPairs(){
   const mode = State.mode, count = State.count;
+
   if(mode === "img-img"){
     const items = sample(State.images, clamp(count, 2, State.images.length));
     const rightOrder = makeDerangement(items);
-    State.pairs = items.map((leftId, i)=> ({ left:{type:"img", value:leftId}, right:{type:"img", value:rightOrder[i]} }));
+    State.pairs = items.map((leftId, i)=> ({
+      left:  {type:"img", value:leftId},
+      right: {type:"img", value:rightOrder[i]}
+    }));
+
   } else if(mode === "word-word"){
+    // обе стороны из списка слов
     const items = sample(State.words, clamp(count, 2, State.words.length));
     const rightOrder = makeDerangement(items);
-    State.pairs = items.map((left, i)=> ({ left:{type:"word", value:left}, right:{type:"word", value:rightOrder[i]} }));
-  } else {
+    State.pairs = items.map((left, i)=> ({
+      left:  {type:"word", value:left},
+      right: {type:"word", value:rightOrder[i]}
+    }));
+
+  } else if(mode === "img-word"){
+    // левая часть картинки, правая — слова
     const k = clamp(count, 2, Math.min(State.images.length, State.words.length));
     const lefts = sample(State.images, k);
     const rights = sample(State.words, k);
-    const shuffledRights = shuffle(rights.slice());
-    State.pairs = lefts.map((lid, i)=> ({ left:{type:"img", value:lid}, right:{type:"word", value:shuffledRights[i]} }));
+    State.pairs = lefts.map((lid, i)=> ({
+      left:  {type:"img", value:lid},
+      right: {type:"word", value:rights[i]}
+    }));
   }
+
   State.tray = shuffle(State.pairs.map(p => p.right));
-  State.index = 0; State.answeredRightByIndex = {}; State.correct = 0; State.wrong = 0;
+  State.index = 0;
+  State.answeredRightByIndex = {};
+  State.correct = 0;
+  State.wrong = 0;
 }
 
 function renderMemory(){
@@ -272,7 +675,7 @@ function renderPlay(){
   const i = State.index, pair = State.pairs[i];
   renderFrame(UI.play.left, pair.left);
   UI.play.right.innerHTML = "";
-  if(State.answeredRightByIndex[i]) UI.play.right.appendChild(renderCard(pair.right));
+  if (State.answeredRightByIndex[i]) renderFrame(UI.play.right, pair.right);
   UI.play.options.innerHTML = "";
   const used = new Set(Object.values(State.answeredRightByIndex));
   State.tray.forEach(card=>{
@@ -392,3 +795,4 @@ bindExitButtons();
 attachDnD();
 
 try{ window.startGame = startGame; }catch(_){ }
+

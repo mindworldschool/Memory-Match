@@ -1,5 +1,5 @@
 
-:root{--base-font:clamp(16px,2.2vw,36px);
+:root{
   --brand-ivory:#FDF8F3;
   --brand-warm-gold:#B68E6B;
   --brand-coral:#E8654B;
@@ -8,11 +8,9 @@
   --frame-gap:24px;
   --topbar:calc(var(--frame-gap)*6);
 }
-body{margin:0;height:100%;font-size:var(--base-font);font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", "Helvetica Neue", Arial, sans-serif;background:var(--frame-orange);color:#333;}
-
 *{box-sizing:border-box}
-html,
-
+html,body{height:100%}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--frame-orange);color:#333}
 .header{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;height:var(--topbar);padding:0 12px}
 .header img{height:calc(var(--topbar)*0.8)}
 .header .title{flex:1;text-align:center;font-weight:800;color:#fff;letter-spacing:.5px;font-size:calc(var(--topbar)*0.7);line-height:var(--topbar)}
@@ -32,8 +30,17 @@ button.secondary{background:#fff;color:var(--brand-coral);border:2px solid var(-
 .pair-view{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media (max-width:900px){.pair-view{grid-template-columns:1fr}}
 .frame{aspect-ratio:1/1;min-height:220px;border:3px dashed var(--brand-warm-gold);border-radius:16px;display:flex;align-items:center;justify-content:center;background:#fff;position:relative;overflow:hidden}
-.frame img{max-width:90%;max-height:90%;object-fit:contain}
-.frame .word{display:flex;align-items:center;justify-content:center;width:90%;height:90%;margin:auto;border:none;background:#fff;color:var(--brand-deep-moss);font-weight:800;line-height:1.1;text-align:center;white-space:nowrap;overflow:hidden}
+.frame img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;   /* сохраняет пропорции и не обрезает */
+  display: block;
+  margin: auto;
+}
+.frame .word{display:flex;align-items:center;justify-content:center;width:90%;height:90%;margin:auto;border:none;background:#fff;font-size:90%;
+font-size:clamp(16px,5vw,48px);text-align:center;color:var(--brand-deep-moss);font-weight:800;line-height:1.1;text-align:center;font-size:90%;font-size:clamp(18px,6vw,72px);white-space:nowrap;overflow:hidden}
 .nav-vertical{display:flex;flex-direction:column;gap:10px;align-items:stretch}
 .nav-vertical button{padding:12px;font-size:18px}
 @media (max-width:900px){.nav-vertical{flex-direction:row;justify-content:center}}
@@ -59,11 +66,9 @@ button.secondary{background:#fff;color:var(--brand-coral);border:2px solid var(-
 .modal-card{width:min(92vw,460px);background:var(--brand-ivory);border:2px solid var(--brand-warm-gold);border-radius:16px;padding:20px;box-shadow:0 24px 60px rgba(0,0,0,.25)}
 .modal-card h3{margin:0 0 8px;color:var(--brand-deep-moss)}
 /* Mascot + praise */
-.leo-mascot{position:absolute;bottom:10px;right:10px;width:140px;z-index:9999;animation:leoEnter 1s ease-out forwards,leoBounce 2s ease-in-out infinite 1s pointer-events: none;}
+.leo-mascot{position:absolute;bottom:10px;right:10px;width:140px;z-index:9999;animation:leoEnter 1s ease-out forwards,leoBounce 2s ease-in-out infinite 1s}
 @keyframes leoEnter{from{bottom:-200px;opacity:0}to{bottom:10px;opacity:1}}
 @keyframes leoBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-.leo-praise{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(232,101,75,.95);color:#fff;padding:12px 22px;border-radius:14px;font-size:32px;font-weight:800;z-index:9998;box-shadow:0 6px 20px rgba(0,0,0,.25) pointer-events: none;}
+.leo-praise{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(232,101,75,.95);color:#fff;padding:12px 22px;border-radius:14px;font-size:32px;font-weight:800;z-index:9998;box-shadow:0 6px 20px rgba(0,0,0,.25)}
 
 .start-panel{max-width:70%;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:8px}
-
-.modal.hidden{ pointer-events: none; }
