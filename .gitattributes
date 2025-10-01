@@ -1,0 +1,7 @@
+# Указываем, что картинки и звуки — бинарные файлы
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.mp3 binary
+*.wav binary
