@@ -1,4 +1,120 @@
 
+// === Translations ===
+const translations = {
+  ru: {
+    start_title: "Настройка игры",
+    pairs_count: "Количество пар:",
+    mode: "Тип пар:",
+    time_mode: "Режим:",
+    no_time: "Без времени",
+    with_time: "Время раунда",
+    seconds: "Секунды:",
+    start_game: "Начать игру",
+    exit: "Выход",
+    memory_screen: "Экран запоминания",
+    memorized_start: "Запомнил все — начать игру",
+    results: "Результаты",
+    correct: "Правильно:",
+    mistakes: "Ошибки:",
+    repeat_round: "Повторить раунд",
+    new_game: "Новая игра",
+    confirm_end: "Завершить игру?",
+    unsaved: "Текущий прогресс не сохранится.",
+    yes_exit: "Да, выйти",
+    cancel: "Отмена"
+  },
+  uk: {
+    start_title: "Налаштування гри",
+    pairs_count: "Кількість пар:",
+    mode: "Тип пар:",
+    time_mode: "Режим:",
+    no_time: "Без часу",
+    with_time: "Час раунду",
+    seconds: "Секунди:",
+    start_game: "Почати гру",
+    exit: "Вихід",
+    memory_screen: "Екран запам’ятовування",
+    memorized_start: "Запам’ятав усе — почати гру",
+    results: "Результати",
+    correct: "Правильно:",
+    mistakes: "Помилки:",
+    repeat_round: "Повторити раунд",
+    new_game: "Нова гра",
+    confirm_end: "Завершити гру?",
+    unsaved: "Поточний процес не збережеться.",
+    yes_exit: "Так, вийти",
+    cancel: "Скасувати"
+  },
+  en: {
+    start_title: "Game Settings",
+    pairs_count: "Number of pairs:",
+    mode: "Pair type:",
+    time_mode: "Mode:",
+    no_time: "No time",
+    with_time: "Round time",
+    seconds: "Seconds:",
+    start_game: "Start game",
+    exit: "Exit",
+    memory_screen: "Memory screen",
+    memorized_start: "Memorized all — start game",
+    results: "Results",
+    correct: "Correct:",
+    mistakes: "Mistakes:",
+    repeat_round: "Repeat round",
+    new_game: "New game",
+    confirm_end: "End game?",
+    unsaved: "Current progress will not be saved.",
+    yes_exit: "Yes, exit",
+    cancel: "Cancel"
+  }
+};
+
+let currentLang = "uk";
+
+function applyTranslations() {
+  const t = translations[currentLang];
+
+  document.querySelector("h2.section-title").textContent = t.start_title;
+  document.querySelector("label[for='mode']").textContent = t.mode;
+  document.querySelector("label[for='pairCount']").textContent = t.pairs_count;
+  document.querySelector("label[for='timeMode']").textContent = t.time_mode;
+  document.querySelector("#timeMode option[value='no-time']").textContent = t.no_time;
+  document.querySelector("#timeMode option[value='with-time']").textContent = t.with_time;
+  document.querySelector("label[for='roundSeconds']").textContent = t.seconds;
+  document.querySelector("#btnStart").textContent = t.start_game;
+
+  document.querySelector("#btnExitMemory").textContent = t.exit;
+  document.querySelector("#btnMemoryDone").textContent = t.memorized_start;
+  document.querySelector("#screen-memory .badge").textContent = t.memory_screen;
+
+  document.querySelector("#btnExitPlay").textContent = t.exit;
+
+  document.querySelector("#screen-results h2").textContent = t.results;
+  document.querySelector("#screen-results .stat:nth-child(1)").childNodes[0].textContent = t.correct + " ";
+  document.querySelector("#screen-results .stat:nth-child(2)").childNodes[0].textContent = t.mistakes + " ";
+  document.querySelector("#btnRepeat").textContent = t.repeat_round;
+  document.querySelector("#btnNew").textContent = t.new_game;
+
+  document.querySelector("#exitModal h3").textContent = t.confirm_end;
+  document.querySelector("#exitModal p.meta").textContent = t.unsaved;
+  document.querySelector("#exitYes").textContent = t.yes_exit;
+  document.querySelector("#exitNo").textContent = t.cancel;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const select = document.getElementById("langSelect");
+  if (select) {
+    select.value = currentLang;
+    select.addEventListener("change", (e) => {
+      currentLang = e.target.value;
+      applyTranslations();
+    });
+  }
+  applyTranslations();
+});
+// === End Translations ===
+
+
 /* Memory Match — Drum Version */
 const SFX = {
   scroll: new Audio('assets/sfx/scroll.wav'),
