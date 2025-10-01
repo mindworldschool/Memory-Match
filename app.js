@@ -21,7 +21,12 @@ const translations = {
     confirm_end: "Завершить игру?",
     unsaved: "Текущий прогресс не сохранится.",
     yes_exit: "Да, выйти",
-    cancel: "Отмена"
+    cancel: "Отмена",
+    modes: {
+      "img-img": "Картинка–Картинка",
+      "word-word": "Слово–Слово",
+      "img-word": "Картинка–Слово"
+    }
   },
   uk: {
     start_title: "Налаштування гри",
@@ -43,7 +48,12 @@ const translations = {
     confirm_end: "Завершити гру?",
     unsaved: "Поточний процес не збережеться.",
     yes_exit: "Так, вийти",
-    cancel: "Скасувати"
+    cancel: "Скасувати",
+    modes: {
+      "img-img": "Зображення–Зображення",
+      "word-word": "Слово–Слово",
+      "img-word": "Зображення–Слово"
+    }
   },
   en: {
     start_title: "Game Settings",
@@ -65,7 +75,12 @@ const translations = {
     confirm_end: "End game?",
     unsaved: "Current progress will not be saved.",
     yes_exit: "Yes, exit",
-    cancel: "Cancel"
+    cancel: "Cancel",
+    modes: {
+      "img-img": "Image–Image",
+      "word-word": "Word–Word",
+      "img-word": "Image–Word"
+    }
   }
 };
 
@@ -82,6 +97,14 @@ function applyTranslations() {
   document.querySelector("#timeMode option[value='with-time']").textContent = t.with_time;
   document.querySelector("label[for='roundSeconds']").textContent = t.seconds;
   document.querySelector("#btnStart").textContent = t.start_game;
+
+  // Обновляем варианты "Тип пар"
+  const modeSelect = document.getElementById("mode");
+  if (modeSelect) {
+    [...modeSelect.options].forEach(opt => {
+      opt.textContent = translations[currentLang].modes[opt.value];
+    });
+  }
 
   document.querySelector("#btnExitMemory").textContent = t.exit;
   document.querySelector("#btnMemoryDone").textContent = t.memorized_start;
@@ -679,7 +702,7 @@ function applyEqualWordSize(leftWordEl, leftFrame, rightWordEl, rightFrame){
 
 function updateMemoryMeta(){ UI.memory.meta.textContent = `Пара ${State.index+1}/${State.pairs.length}`; }
 function updatePlayMeta(){
-  const modeLabel = {"img-img":"Картинка–Картинка","word-word":"Слово–Слово","img-word":"Картинка–Слово"}[State.mode];
+  const modeLabel = translations[currentLang].modes[State.mode];
   UI.play.meta.textContent = `Пара ${State.index+1}/${State.pairs.length} • Режим: ${modeLabel}`;
 }
 
