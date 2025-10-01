@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /memory-match
+Disallow: /
+Sitemap: https://mindworldschool.com/sitemap.xml
