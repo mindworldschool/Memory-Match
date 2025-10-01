@@ -1,0 +1,13 @@
+# Игнорируем служебные файлы
+*.psd
+*.ai
+*.xlsx
+*.docx
+*.zip
+
+# Node.js (если появятся зависимости)
+node_modules/
+
+# Mac/Windows служебные
+.DS_Store
+Thumbs.db
