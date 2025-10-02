@@ -749,39 +749,46 @@ function buildPairs(){
   const mode = State.mode, count = State.count;
 
   if(mode === "img-img"){
-    const items = sample(State.images, clamp(count, 2, State.images.length));
-    const rightOrder = makeDerangement(items);
-    State.pairs = items.map((leftId, i)=> ({
-      left:  {type:"img", value:leftId},
-      right: {type:"img", value:rightOrder[i]}
+    // Для N пар берём сразу 2*N уникальных картинок
+    const k = clamp(count, 2, Math.floor(State.images.length/2));
+    const chosen = sample(State.images, 2*k);
+    const lefts  = chosen.slice(0, k);
+    const rights = chosen.slice(k, 2*k);
+    State.pairs = lefts.map((lid, i)=> ({
+      left:  {type:"img", value: lid},
+      right: {type:"img", value: rights[i]}
     }));
 
   } else if(mode === "word-word"){
-    // обе стороны из списка слов
-    const items = sample(State.words, clamp(count, 2, State.words.length));
-    const rightOrder = makeDerangement(items);
-    State.pairs = items.map((left, i)=> ({
-      left:  {type:"word", value:left},
-      right: {type:"word", value:rightOrder[i]}
+    // Для N пар берём сразу 2*N уникальных слов
+    const k = clamp(count, 2, Math.floor(State.words.length/2));
+    const chosen = sample(State.words, 2*k);
+    const lefts  = chosen.slice(0, k);
+    const rights = chosen.slice(k, 2*k);
+    State.pairs = lefts.map((w, i)=> ({
+      left:  {type:"word", value: w},
+      right: {type:"word", value: rights[i]}
     }));
 
   } else if(mode === "img-word"){
-    // левая часть картинки, правая — слова
+    // Для N пар берём N уникальных картинок и N уникальных слов
     const k = clamp(count, 2, Math.min(State.images.length, State.words.length));
-    const lefts = sample(State.images, k);
+    const lefts  = sample(State.images, k);
     const rights = sample(State.words, k);
     State.pairs = lefts.map((lid, i)=> ({
-      left:  {type:"img", value:lid},
-      right: {type:"word", value:rights[i]}
+      left:  {type:"img", value: lid},
+      right: {type:"word", value: rights[i]}
     }));
   }
 
+  // нижний лоток с правыми элементами
   State.tray = shuffle(State.pairs.map(p => p.right));
   State.index = 0;
   State.answeredRightByIndex = {};
   State.correct = 0;
   State.wrong = 0;
 }
+
 
 function renderMemory(){
   updateMemoryMeta();
