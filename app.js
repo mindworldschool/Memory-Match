@@ -1,5 +1,4 @@
-
-// === Translations ===
+// === Translations (merged) ===
 const translations = {
   ru: {
     start_title: "Настройка игры",
@@ -22,13 +21,16 @@ const translations = {
     unsaved: "Текущий прогресс не сохранится.",
     yes_exit: "Да, выйти",
     cancel: "Отмена",
+    pair_word: "Пара",
+    mode_word: "Режим",
+    praise: ["Молодец!", "Отлично!"],
     modes: {
       "img-img": "Картинка–Картинка",
       "word-word": "Слово–Слово",
       "img-word": "Картинка–Слово"
     }
   },
-  uk: {
+  ua: {
     start_title: "Налаштування гри",
     pairs_count: "Кількість пар:",
     mode: "Тип пар:",
@@ -49,6 +51,9 @@ const translations = {
     unsaved: "Поточний процес не збережеться.",
     yes_exit: "Так, вийти",
     cancel: "Скасувати",
+    pair_word: "Пара",
+    mode_word: "Режим",
+    praise: ["Молодець!", "Чудово!"],
     modes: {
       "img-img": "Зображення–Зображення",
       "word-word": "Слово–Слово",
@@ -76,6 +81,9 @@ const translations = {
     unsaved: "Current progress will not be saved.",
     yes_exit: "Yes, exit",
     cancel: "Cancel",
+    pair_word: "Pair",
+    mode_word: "Mode",
+    praise: ["Well done!", "You are great!"],
     modes: {
       "img-img": "Image–Image",
       "word-word": "Word–Word",
@@ -84,7 +92,12 @@ const translations = {
   }
 };
 
-let currentLang = "uk";
+// стартовый язык: localStorage → селектор → язык браузера → ua
+let currentLang =
+  localStorage.getItem("mm_lang") ||
+  (document.getElementById("langSelect")?.value) ||
+  ((navigator.language || "").startsWith("ru") ? "ru" :
+   (navigator.language || "").startsWith("ua") ? "ua" : "en") || "ua";
 
 function applyTranslations() {
   const t = translations[currentLang];
@@ -98,11 +111,11 @@ function applyTranslations() {
   document.querySelector("label[for='roundSeconds']").textContent = t.seconds;
   document.querySelector("#btnStart").textContent = t.start_game;
 
-  // Обновляем варианты "Тип пар"
+  // "Тип пар"
   const modeSelect = document.getElementById("mode");
   if (modeSelect) {
     [...modeSelect.options].forEach(opt => {
-      opt.textContent = translations[currentLang].modes[opt.value];
+      opt.textContent = t.modes[opt.value];
     });
   }
 
@@ -130,10 +143,14 @@ document.addEventListener("DOMContentLoaded", () => {
     select.value = currentLang;
     select.addEventListener("change", (e) => {
       currentLang = e.target.value;
+      localStorage.setItem("mm_lang", currentLang);
       applyTranslations();
+      if (typeof updateMemoryMeta === 'function') updateMemoryMeta();
+      if (typeof updatePlayMeta === 'function') updatePlayMeta();
     });
   }
   applyTranslations();
+  localStorage.setItem("mm_lang", currentLang);
 });
 // === End Translations ===
 
@@ -202,6 +219,7 @@ const UI = {
     btnNew: document.getElementById('btnNew'),
   }
 };
+
 // startGame wrapper (minimal, auto-added)
 async function startGame(){
   try{
@@ -423,185 +441,42 @@ const INLINE_WORDS = ["airport",
 
 const FALLBACK = {
   imageIds: ["airport",
-  "apple",
-  "armchair",
-  "baby",
-  "bag",
-  "ball",
-  "banana",
-  "bathroom",
-  "bear",
-  "bed",
-  "bee",
-  "bike",
-  "bird",
-  "board",
-  "boat",
-  "book",
-  "boots",
-  "box",
-  "boy",
-  "bread",
-  "bridge",
-  "bus",
-  "cake",
-  "camel",
-  "car",
-  "carrot",
-  "cat",
-  "chair",
-  "cheese",
-  "chicken",
-  "child",
-  "childboy",
-  "children",
-  "climbingframe",
-  "cloud",
-  "clown",
-  "coat",
-  "computer",
-  "cow",
-  "crown",
-  "cup",
-  "dancer",
-  "dog",
-  "doll",
-  "door",
-  "dress",
-  "drums",
-  "duck",
-  "egg",
-  "elephant",
-  "family",
-  "fire",
-  "fireman",
-  "fish",
-  "fishh",
-  "flower",
-  "fridge",
-  "frog",
-  "garden",
-  "gglass",
-  "girafe",
-  "girl",
-  "glass",
-  "glass_of_juic",
-  "glass_of_milk",
-  "gloves",
-  "goat",
-  "grandma",
-  "grandpa",
-  "grapes",
-  "guitar",
-  "hare",
-  "hat",
-  "hedgehog",
-  "hippo",
-  "horse",
-  "house",
-  "housee",
-  "jacket",
-  "kangaroo",
-  "king",
-  "kitchen",
-  "lamp",
-  "laptop",
-  "leopard",
-  "lion",
-  "lion_simba",
-  "man",
-  "meat",
-  "mobile",
-  "monkey",
-  "monkeyy",
-  "moon",
-  "mountain",
-  "mouse",
-  "objec",
-  "octopus",
-  "orange",
-  "park",
-  "parrot",
-  "pasta",
-  "pen",
-  "pencil",
-  "penguin",
-  "people",
-  "pig",
-  "pizza",
-  "plane",
-  "plate",
-  "platee",
-  "police",
-  "potato",
-  "pplate",
-  "queen",
-  "rabbit",
-  "rabbitt",
-  "rain",
-  "rainbow",
-  "rhino",
-  "river",
-  "road",
-  "ruler",
-  "scarf",
-  "school",
-  "schooll",
-  "sea",
-  "shark",
-  "sheep",
-  "ship",
-  "shirt",
-  "shoes",
-  "shorts",
-  "skirt",
-  "sky",
-  "slide",
-  "snow",
-  "socks",
-  "sofa",
-  "sofaa",
-  "soup",
-  "spoon",
-  "spoonn",
-  "squarrel",
-  "star",
-  "station",
-  "street",
-  "student",
-  "sun",
-  "sunglasses",
-  "swan",
-  "sweater",
-  "swing",
-  "t-shirt",
-  "table",
-  "taxi",
-  "teacher",
-  "ticket",
-  "tiger",
-  "tomato",
-  "tortule",
-  "toucan",
-  "train",
-  "tree",
-  "truck",
-  "trumpet",
-  "umbrella",
-  "violin",
-  "watch",
-  "watermelon",
-  "whale",
-  "wind",
-  "window",
-  "wolf",
-  "woman",
-  "womanshoes",
-  "zebra",
-  "zebraa",
-  "zzebra"
+  "apple", "armchair", "baby", "bag", "ball", "banana", "bathroom", "bear", "bed", "bee",
+  "bike", "bird", "board", "boat", "book", "boots", "box", "boy", "bread", "bridge",
+  "bus", "cake", "camel", "car", "carrot", "cat", "chair", "cheese", "chicken",
+  "child", "childboy", "children", "climbingframe", "cloud", "clown", "coat",
+  "computer", "cow", "crown", "cup", "dancer", "dog", "doll", "door", "dress",
+  "drums", "duck", "egg", "elephant", "family", "fire", "fireman", "fish", "fishh",
+  "flower", "fridge", "frog", "garden", "gglass", "girafe", "girl", "glass",
+  "glass_of_juic", "glass_of_milk", "gloves", "goat", "grandma", "grandpa",
+  "grapes", "guitar", "hare", "hat", "hedgehog", "hippo", "horse", "house",
+  "housee", "jacket", "kangaroo", "king", "kitchen", "lamp", "laptop", "leopard",
+  "lion", "lion_simba", "man", "meat", "mobile", "monkey", "monkeyy", "moon",
+  "mountain", "mouse", "objec", "octopus", "orange", "park", "parrot", "pasta",
+  "pen", "pencil", "penguin", "people", "pig", "pizza", "plane", "plate", "platee",
+  "police", "potato", "pplate", "queen", "rabbit", "rabbitt", "rain", "rainbow",
+  "rhino", "river", "road", "ruler", "scarf", "school", "schooll", "sea", "shark",
+  "sheep", "ship", "shirt", "shoes", "shorts", "skirt", "sky", "slide", "snow",
+  "socks", "sofa", "sofaa", "soup", "spoon", "spoonn", "squarrel", "star",
+  "station", "street", "student", "sun", "sunglasses", "swan", "sweater", "swing",
+  "t-shirt", "table", "taxi", "teacher", "ticket", "tiger", "tomato", "tortule",
+  "toucan", "train", "tree", "truck", "trumpet", "umbrella", "violin", "watch",
+  "watermelon", "whale", "wind", "window", "wolf", "woman", "womanshoes",
+  "zebra", "zebraa", "zzebra"
 ],
-  words: ["airport", "apple", "baby", "bag", "banana", "bathroom", "bear", "bed", "bike", "bird", "board", "boat", "book", "boots", "boy", "bread", "bridge", "brother", "bus", "car", "cat", "chair", "cheese", "chicken", "child", "clock", "cloud", "coat", "computer", "cow", "cup", "desk", "dog", "door", "dress", "egg", "elephant", "family", "father", "fire", "fish", "flower", "fridge", "friend", "frog", "garden", "girl", "gloves", "hat", "horse", "house", "jacket", "juice", "kitchen", "lamp", "lion", "man", "map", "meat", "metro", "milk", "monkey", "moon", "mother", "mountain", "notebook", "orange", "paper", "pasta", "pen", "pencil", "people", "phone", "picture", "pig", "plane", "plate", "rabbit", "rain", "rice", "river", "road", "room", "ruler", "scarf", "school", "sea", "sheep", "ship", "shirt", "shoes", "shorts", "sister", "skirt", "sky", "snow", "socks", "sofa", "soup", "spoon", "star", "station", "street", "student", "sun", "sweater", "t-shirt", "table", "taxi", "teacher", "tiger", "train", "tree", "trousers", "truck", "water", "wind", "window", "woman"]
+  words: ["airport", "apple", "baby", "bag", "banana", "bathroom", "bear", "bed", "bike", "bird",
+  "board", "boat", "book", "boots", "boy", "bread", "bridge", "brother", "bus", "car",
+  "cat", "chair", "cheese", "chicken", "child", "clock", "cloud", "coat", "computer",
+  "cow", "cup", "desk", "dog", "door", "dress", "egg", "elephant", "family", "father",
+  "fire", "fish", "flower", "fridge", "friend", "frog", "garden", "girl", "gloves",
+  "hat", "horse", "house", "jacket", "juice", "kitchen", "lamp", "lion", "man", "map",
+  "meat", "metro", "milk", "monkey", "moon", "mother", "mountain", "notebook", "orange",
+  "paper", "pasta", "pen", "pencil", "people", "phone", "picture", "pig", "plane",
+  "plate", "rabbit", "rain", "rice", "river", "road", "room", "ruler", "scarf", "school",
+  "sea", "sheep", "ship", "shirt", "shoes", "shorts", "sister", "skirt", "sky", "snow",
+  "socks", "sofa", "soup", "spoon", "star", "station", "street", "student", "sun",
+  "sweater", "t-shirt", "table", "taxi", "teacher", "tiger", "train", "tree", "trousers",
+  "truck", "water", "wind", "window", "woman"]
 };
 
 const ASSETS = {
@@ -661,6 +536,70 @@ function createElement(tag, props={}, children){
   return el;
 }
 
+/* ===== Touch DnD fallback (mobile) ===== */
+function isPointInside(el, x, y){
+  const r = el.getBoundingClientRect();
+  return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+}
+function enableTouchDrag(optionEl, dropEl, onDrop){
+  let dragging = false;
+  let ghost = null;
+  let lastX = 0, lastY = 0;
+
+  function onTouchStart(e){
+    if (dragging) return;
+    const t = e.touches && e.touches[0]; if (!t) return;
+    dragging = true;
+    lastX = t.clientX; lastY = t.clientY;
+
+    optionEl.classList.add('dragging');
+
+    ghost = optionEl.cloneNode(true);
+    ghost.style.position = 'fixed';
+    ghost.style.left = (lastX - 40) + 'px';
+    ghost.style.top  = (lastY - 40) + 'px';
+    ghost.style.pointerEvents = 'none';
+    ghost.style.zIndex = '9999';
+    ghost.style.opacity = '0.9';
+    document.body.appendChild(ghost);
+
+    dropEl.classList.toggle('over', isPointInside(dropEl, lastX, lastY));
+    e.preventDefault();
+  }
+  function onTouchMove(e){
+    if (!dragging) return;
+    const t = e.touches && e.touches[0]; if (!t) return;
+    lastX = t.clientX; lastY = t.clientY;
+    if (ghost){
+      ghost.style.left = (lastX - 40) + 'px';
+      ghost.style.top  = (lastY - 40) + 'px';
+    }
+    dropEl.classList.toggle('over', isPointInside(dropEl, lastX, lastY));
+    e.preventDefault();
+  }
+  async function onTouchEnd(e){
+    if (!dragging) return;
+    const over = isPointInside(dropEl, lastX, lastY);
+    cleanup();
+    if (over && typeof onDrop === 'function'){
+      await onDrop();
+    }
+    e.preventDefault();
+  }
+  function cleanup(){
+    dragging = false;
+    optionEl.classList.remove('dragging');
+    dropEl.classList.remove('over');
+    if (ghost && ghost.parentNode) ghost.parentNode.removeChild(ghost);
+    ghost = null;
+  }
+
+  optionEl.addEventListener('touchstart', onTouchStart, {passive:false});
+  optionEl.addEventListener('touchmove',  onTouchMove,  {passive:false});
+  optionEl.addEventListener('touchend',   onTouchEnd,   {passive:false});
+  optionEl.addEventListener('touchcancel',onTouchEnd,   {passive:false});
+}
+
 function renderCard(el, card){
   if(!card){
     el.innerHTML = '';
@@ -700,10 +639,14 @@ function applyEqualWordSize(leftWordEl, leftFrame, rightWordEl, rightFrame){
   rightWordEl.style.fontSize = fs + 'px';
 }
 
-function updateMemoryMeta(){ UI.memory.meta.textContent = `Пара ${State.index+1}/${State.pairs.length}`; }
+function updateMemoryMeta(){
+  const t = translations[currentLang];
+  UI.memory.meta.textContent = `${t.pair_word} ${State.index+1}/${State.pairs.length}`;
+}
 function updatePlayMeta(){
-  const modeLabel = translations[currentLang].modes[State.mode];
-  UI.play.meta.textContent = `Пара ${State.index+1}/${State.pairs.length} • Режим: ${modeLabel}`;
+  const t = translations[currentLang];
+  const modeLabel = t.modes[State.mode];
+  UI.play.meta.textContent = `${t.pair_word} ${State.index+1}/${State.pairs.length} • ${t.mode_word}: ${modeLabel}`;
 }
 
 function showScreen(name){
@@ -824,15 +767,49 @@ function renderPlay(){
   if (State.answeredRightByIndex[i]) renderFrame(UI.play.right, pair.right);
   UI.play.options.innerHTML = "";
   const used = new Set(Object.values(State.answeredRightByIndex));
+
   State.tray.forEach(card=>{
     const key = keyOf(card); if(used.has(key)) return;
+
     const el = createElement('div', {class:"option", draggable:"true"});
-    if(card.type==="img"){ el.appendChild(createElement("img",{src:ASSETS.imagePath(card.value),alt:card.value})); }
-    else { el.appendChild(createElement("div",{class:"word"}, card.value)); }
+    if(card.type==="img"){
+      el.appendChild(createElement("img",{src:ASSETS.imagePath(card.value),alt:card.value}));
+    } else {
+      el.appendChild(createElement("div",{class:"word"}, card.value));
+    }
     el.dataset.key = key;
+
+    // HTML5 DnD (десктоп)
     el.addEventListener("dragstart", e=> e.dataTransfer.setData("text/plain", key));
+
+    // Touch DnD (мобилки) — используем ту же проверку, что в drop
+    enableTouchDrag(el, UI.play.right, async ()=>{
+      if (State.answeredRightByIndex[State.index]) return;
+      const givenKey = key;
+      const correctKey = keyOf(State.pairs[State.index].right);
+      SFX.drop.currentTime=0; SFX.drop.play().catch(()=>{});
+      if(givenKey === correctKey){
+        State.answeredRightByIndex[State.index] = correctKey;
+        State.correct++; SFX.correct.currentTime=0; SFX.correct.play().catch(()=>{});
+        renderPlay(); await sleep(250);
+        if(Object.keys(State.answeredRightByIndex).length === State.pairs.length){
+          finishRound(); SFX.finish.currentTime=0; SFX.finish.play().catch(()=>{});
+        } else { nextIndex(); renderPlay(); }
+      } else {
+        State.wrong++; SFX.wrong.currentTime=0; SFX.wrong.play().catch(()=>{});
+        const overlay = createElement('div', {class:'bad-overlay'},
+          createElement('img',{class:'bad-img', src:'assets/ui/wrong_overlay.png', alt:'wrong'})
+        );
+        UI.play.right.appendChild(overlay);
+        await sleep(2000);
+        overlay.remove();
+        nextIndex(); renderPlay();
+      }
+    });
+
     UI.play.options.appendChild(el);
   });
+
   requestAnimationFrame(()=>{
     const lw = UI.play.left.querySelector('.word');
     const rw = UI.play.right.querySelector('.word');
@@ -885,8 +862,10 @@ function finishRound(){
   const mascot = document.createElement('img');
   mascot.id='leoMascot'; mascot.src='assets/leo_mascot.png'; mascot.className='leo-mascot';
   container.appendChild(mascot);
-  const phrases = ['Well done!','You are great!'];
-  const pText = phrases[ State.praiseFlip % 2 ];
+
+  const t = translations[currentLang];
+  const phrases = t.praise || ['Well done!','You are great!'];
+  const pText = phrases[ State.praiseFlip % phrases.length ];
   State.praiseFlip++;
   const praise = document.createElement('div');
   praise.id='leoPraise'; praise.className='leo-praise'; praise.textContent = pText;
@@ -941,4 +920,3 @@ bindExitButtons();
 attachDnD();
 
 try{ window.startGame = startGame; }catch(_){ }
-

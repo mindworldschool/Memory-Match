@@ -1,0 +1,28 @@
+{
+  "name": "Memory Match — MindWorld School",
+  "short_name": "Memory Match",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FDF8F3",
+  "theme_color": "#B68E6B",
+  "description": "Memory Match — онлайн-гра для розвитку пам’яті та уваги. Грайте безкоштовно в режимах картинка-картинка, слово-слово та картинка-слово.",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

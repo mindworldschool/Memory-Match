@@ -1,25 +1,35 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta name="robots" content="index, follow">
   <meta charset="utf-8">
+  <meta name="robots" content="index, follow">
+
+  <!-- Viewport для мобильных с вырезами экрана -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
   <!-- SEO & Open Graph for Memory Match -->
-<meta name="robots" content="index, follow">
-<meta name="description" content="Memory Match — онлайн-гра для розвитку пам’яті та уваги. Доступна на сайті MindWorld School. Грайте безкоштовно в режимах картинка-картинка, слово-слово та картинка-слово.">
+  <meta name="description" content="Memory Match — онлайн-гра для розвитку пам’яті та уваги. Доступна на сайті MindWorld School. Грайте безкоштовно в режимах картинка-картинка, слово-слово та картинка-слово.">
 
-<!-- Open Graph (Facebook, Telegram, LinkedIn) -->
-<meta property="og:title" content="Memory Match — онлайн-гра для тренування пам’яті">
-<meta property="og:description" content="Безкоштовна гра для розвитку пам’яті. Виберіть режим: картинка–картинка, слово–слово або картинка–слово.">
-<meta property="og:image" content="https://mindworldschool.com/assets/memory-match-og.jpg">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://mindworldschool.com/memory-match">
+  <!-- Open Graph (Facebook, Telegram, LinkedIn) -->
+  <meta property="og:title" content="Memory Match — онлайн-гра для тренування пам’яті">
+  <meta property="og:description" content="Безкоштовна гра для розвитку пам’яті. Виберіть режим: картинка–картинка, слово–слово або картинка–слово.">
+  <meta property="og:image" content="https://mindworldschool.com/assets/memory-match-og.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mindworldschool.com/memory-match">
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Memory Match — тренажер пам’яті онлайн">
-<meta name="twitter:description" content="Онлайн-гра для дітей і дорослих. Тренуйте пам’ять із картками слів і картинок.">
-<meta name="twitter:image" content="https://mindworldschool.com/assets/memory-match-og.jpg">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Memory Match — тренажер пам’яті онлайн">
+  <meta name="twitter:description" content="Онлайн-гра для дітей і дорослих. Тренуйте пам’ять із картками слів і картинок.">
+  <meta name="twitter:image" content="https://mindworldschool.com/assets/memory-match-og.jpg">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#B68E6B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
   <title>Memory Match — MindWorld (Drum)</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -29,13 +39,12 @@
     <div class="title">Memory Match</div>
     <div class="lang-switcher">
       <select id="langSelect">
-        <option value="uk" selected>🇺🇦 UK</option>
-        <option value="en">🇬🇧 EN</option>
-        <option value="ru">🇷🇺 RU</option>
+        <option value="ua" selected>UA</option>
+        <option value="en">EN</option>
+        <option value="ru">RU</option>
       </select>
     </div>
-    <img src="assets/logo_lion.png" alt="Leo" class="brand-right">
-  </header>
+      </header>
 
   <main class="container">
     <!-- Start Screen -->
@@ -151,5 +160,14 @@
   </div>
 
   <script src="app.js" defer></script>
+
+  <!-- Регистрация Service Worker для PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+      });
+    }
+  </script>
 </body>
 </html>
