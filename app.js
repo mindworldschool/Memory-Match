@@ -1,3 +1,4 @@
+
 // === Translations ===
 const translations = {
   ru: {
@@ -97,6 +98,7 @@ function applyTranslations() {
   document.querySelector("label[for='roundSeconds']").textContent = t.seconds;
   document.querySelector("#btnStart").textContent = t.start_game;
 
+  // Обновляем варианты "Тип пар"
   const modeSelect = document.getElementById("mode");
   if (modeSelect) {
     [...modeSelect.options].forEach(opt => {
@@ -106,8 +108,7 @@ function applyTranslations() {
 
   document.querySelector("#btnExitMemory").textContent = t.exit;
   document.querySelector("#btnMemoryDone").textContent = t.memorized_start;
-  const memBadge = document.querySelector("#screen-memory .badge");
-  if (memBadge) memBadge.textContent = t.memory_screen;
+  document.querySelector("#screen-memory .badge").textContent = t.memory_screen;
 
   document.querySelector("#btnExitPlay").textContent = t.exit;
 
@@ -118,8 +119,7 @@ function applyTranslations() {
   document.querySelector("#btnNew").textContent = t.new_game;
 
   document.querySelector("#exitModal h3").textContent = t.confirm_end;
-  const meta = document.querySelector("#exitModal p.meta");
-  if (meta) meta.textContent = t.unsaved;
+  document.querySelector("#exitModal p.meta").textContent = t.unsaved;
   document.querySelector("#exitYes").textContent = t.yes_exit;
   document.querySelector("#exitNo").textContent = t.cancel;
 }
@@ -152,12 +152,7 @@ let audioUnlocked = false;
 function unlockAudio(){
   if(audioUnlocked) return;
   audioUnlocked = true;
-  Object.values(SFX).forEach(a=>{
-    try{ a.play().then(()=>a.pause()).catch(()=>{}); }catch(e){}
-  });
-  try {
-    SOUNDS.triumph.play().then(()=>{SOUNDS.triumph.pause();SOUNDS.triumph.currentTime=0;}).catch(()=>{});
-  } catch(_){}
+  Object.values(SFX).forEach(a=>{ try{ a.play().then(()=>a.pause()).catch(()=>{}); }catch(e){} });
 }
 
 function removeMascot(){
@@ -207,7 +202,6 @@ const UI = {
     btnNew: document.getElementById('btnNew'),
   }
 };
-
 // startGame wrapper (minimal, auto-added)
 async function startGame(){
   try{
@@ -428,7 +422,185 @@ const INLINE_WORDS = ["airport",
 ];
 
 const FALLBACK = {
-  imageIds: [...INLINE_IMAGES],
+  imageIds: ["airport",
+  "apple",
+  "armchair",
+  "baby",
+  "bag",
+  "ball",
+  "banana",
+  "bathroom",
+  "bear",
+  "bed",
+  "bee",
+  "bike",
+  "bird",
+  "board",
+  "boat",
+  "book",
+  "boots",
+  "box",
+  "boy",
+  "bread",
+  "bridge",
+  "bus",
+  "cake",
+  "camel",
+  "car",
+  "carrot",
+  "cat",
+  "chair",
+  "cheese",
+  "chicken",
+  "child",
+  "childboy",
+  "children",
+  "climbingframe",
+  "cloud",
+  "clown",
+  "coat",
+  "computer",
+  "cow",
+  "crown",
+  "cup",
+  "dancer",
+  "dog",
+  "doll",
+  "door",
+  "dress",
+  "drums",
+  "duck",
+  "egg",
+  "elephant",
+  "family",
+  "fire",
+  "fireman",
+  "fish",
+  "fishh",
+  "flower",
+  "fridge",
+  "frog",
+  "garden",
+  "gglass",
+  "girafe",
+  "girl",
+  "glass",
+  "glass_of_juic",
+  "glass_of_milk",
+  "gloves",
+  "goat",
+  "grandma",
+  "grandpa",
+  "grapes",
+  "guitar",
+  "hare",
+  "hat",
+  "hedgehog",
+  "hippo",
+  "horse",
+  "house",
+  "housee",
+  "jacket",
+  "kangaroo",
+  "king",
+  "kitchen",
+  "lamp",
+  "laptop",
+  "leopard",
+  "lion",
+  "lion_simba",
+  "man",
+  "meat",
+  "mobile",
+  "monkey",
+  "monkeyy",
+  "moon",
+  "mountain",
+  "mouse",
+  "objec",
+  "octopus",
+  "orange",
+  "park",
+  "parrot",
+  "pasta",
+  "pen",
+  "pencil",
+  "penguin",
+  "people",
+  "pig",
+  "pizza",
+  "plane",
+  "plate",
+  "platee",
+  "police",
+  "potato",
+  "pplate",
+  "queen",
+  "rabbit",
+  "rabbitt",
+  "rain",
+  "rainbow",
+  "rhino",
+  "river",
+  "road",
+  "ruler",
+  "scarf",
+  "school",
+  "schooll",
+  "sea",
+  "shark",
+  "sheep",
+  "ship",
+  "shirt",
+  "shoes",
+  "shorts",
+  "skirt",
+  "sky",
+  "slide",
+  "snow",
+  "socks",
+  "sofa",
+  "sofaa",
+  "soup",
+  "spoon",
+  "spoonn",
+  "squarrel",
+  "star",
+  "station",
+  "street",
+  "student",
+  "sun",
+  "sunglasses",
+  "swan",
+  "sweater",
+  "swing",
+  "t-shirt",
+  "table",
+  "taxi",
+  "teacher",
+  "ticket",
+  "tiger",
+  "tomato",
+  "tortule",
+  "toucan",
+  "train",
+  "tree",
+  "truck",
+  "trumpet",
+  "umbrella",
+  "violin",
+  "watch",
+  "watermelon",
+  "whale",
+  "wind",
+  "window",
+  "wolf",
+  "woman",
+  "womanshoes",
+  "zebra",
+  "zebraa",
+  "zzebra"
+],
   words: ["airport", "apple", "baby", "bag", "banana", "bathroom", "bear", "bed", "bike", "bird", "board", "boat", "book", "boots", "boy", "bread", "bridge", "brother", "bus", "car", "cat", "chair", "cheese", "chicken", "child", "clock", "cloud", "coat", "computer", "cow", "cup", "desk", "dog", "door", "dress", "egg", "elephant", "family", "father", "fire", "fish", "flower", "fridge", "friend", "frog", "garden", "girl", "gloves", "hat", "horse", "house", "jacket", "juice", "kitchen", "lamp", "lion", "man", "map", "meat", "metro", "milk", "monkey", "moon", "mother", "mountain", "notebook", "orange", "paper", "pasta", "pen", "pencil", "people", "phone", "picture", "pig", "plane", "plate", "rabbit", "rain", "rice", "river", "road", "room", "ruler", "scarf", "school", "sea", "sheep", "ship", "shirt", "shoes", "shorts", "sister", "skirt", "sky", "snow", "socks", "sofa", "soup", "spoon", "star", "station", "street", "student", "sun", "sweater", "t-shirt", "table", "taxi", "teacher", "tiger", "train", "tree", "trousers", "truck", "water", "wind", "window", "woman"]
 };
 
@@ -442,10 +614,11 @@ const ASSETS = {
 const SOUNDS = {
   triumph: new Audio('assets/sounds/triumf.mp3')
 };
-
 // Prime audio on first user gesture to avoid autoplay restrictions
-document.addEventListener('click', unlockAudio, {once:true});
-document.addEventListener('touchstart', unlockAudio, {once:true, passive:true});
+document.addEventListener('click', function _mw_primeOnce(){
+  try { SOUNDS.triumph.play().then(()=>{SOUNDS.triumph.pause();SOUNDS.triumph.currentTime=0;}).catch(()=>{}); } catch(_){}
+  document.removeEventListener('click', _mw_primeOnce);
+}, {once:true});
 
 
 const State = {
@@ -494,10 +667,9 @@ function renderCard(el, card){
     return;
   }
   if (card.type === 'img'){
-    el.innerHTML = `<img src="${ASSETS.imagePath(card.value)}" alt="${card.value}" style="width:100%;height:100%;object-fit:contain;">`;
+    el.innerHTML = `<img src="${ASSETS.imagePath(card.value)}" alt="${card.value}">`;
   } else if (card.type === 'word'){
-    // В кадре используем картинку слова, но гарантируем масштабирование
-    el.innerHTML = `<img src="${ASSETS.wordPath(card.value)}" alt="${card.value}" style="width:100%;height:100%;object-fit:contain;">`;
+    el.innerHTML = `<img src="${ASSETS.wordPath(card.value)}" alt="${card.value}">`;
   }
 }
 function renderFrame(targetEl, card){
@@ -505,7 +677,7 @@ function renderFrame(targetEl, card){
   if (card) renderCard(targetEl, card);
 }
 
-// Fit helpers (используются только для текстовых .word вариантов в опциях)
+// Fit helpers
 function computeFitFontSize(el, frame){
   if(!el || !frame) return 16;
   const maxW = frame.clientWidth * 0.9;
@@ -518,7 +690,7 @@ function computeFitFontSize(el, frame){
     const ok = el.scrollWidth <= maxW && el.scrollHeight <= maxH;
     if(ok) lo = mid; else hi = mid-1;
   }
-  return Math.floor(lo * 0.9);
+   return Math.floor(lo * 0.9);
 }
 function applyEqualWordSize(leftWordEl, leftFrame, rightWordEl, rightFrame){
   const fsL = computeFitFontSize(leftWordEl, leftFrame);
@@ -538,16 +710,13 @@ function showScreen(name){
   if (name==='results') {
     try { SOUNDS.triumph.currentTime = 0; SOUNDS.triumph.play().catch(()=>{}); } catch(_) {}
   }
-  for (const [k,el] of Object.entries(UI.screens)){
-    if(!el) continue;
-    el.classList.toggle("hidden", k!==name);
-  }
-}
+ for(const [k,el] of Object.entries(UI.screens)){ el.classList.toggle("hidden", k!==name); } }
 
 async function loadAssetsJson(url, fallback){
   try{ const res = await fetch(url, {cache:"no-cache"}); if(!res.ok) throw new Error(); return await res.json(); }
   catch{ return fallback; }
 }
+
 
 async function loadPools(){
   if (location.protocol === 'file:' || location.protocol === 'file') {
@@ -568,6 +737,7 @@ async function loadPools(){
   }
 }
 
+
 function makeDerangement(list){
   const n = list.length; if(n<=1) return list.slice().reverse();
   let perm = [...Array(n).keys()];
@@ -579,6 +749,7 @@ function buildPairs(){
   const mode = State.mode, count = State.count;
 
   if(mode === "img-img"){
+    // Для N пар берём сразу 2*N уникальных картинок
     const k = clamp(count, 2, Math.floor(State.images.length/2));
     const chosen = sample(State.images, 2*k);
     const lefts  = chosen.slice(0, k);
@@ -589,6 +760,7 @@ function buildPairs(){
     }));
 
   } else if(mode === "word-word"){
+    // Для N пар берём сразу 2*N уникальных слов
     const k = clamp(count, 2, Math.floor(State.words.length/2));
     const chosen = sample(State.words, 2*k);
     const lefts  = chosen.slice(0, k);
@@ -599,6 +771,7 @@ function buildPairs(){
     }));
 
   } else if(mode === "img-word"){
+    // Для N пар берём N уникальных картинок и N уникальных слов
     const k = clamp(count, 2, Math.min(State.images.length, State.words.length));
     const lefts  = sample(State.images, k);
     const rights = sample(State.words, k);
@@ -616,12 +789,19 @@ function buildPairs(){
   State.wrong = 0;
 }
 
+
 function renderMemory(){
   updateMemoryMeta();
   const pair = State.pairs[State.index];
   renderFrame(UI.memory.left, pair.left);
   renderFrame(UI.memory.right, pair.right);
-  // Для текстовых (.word) в будущем можно адаптировать fit — сейчас в кадре картинки
+  requestAnimationFrame(()=>{
+    const lw = UI.memory.left.querySelector('.word');
+    const rw = UI.memory.right.querySelector('.word');
+    if(lw && rw){ applyEqualWordSize(lw, UI.memory.left, rw, UI.memory.right); }
+    else if(lw){ lw.style.fontSize = computeFitFontSize(lw, UI.memory.left)+'px'; }
+    else if(rw){ rw.style.fontSize = computeFitFontSize(rw, UI.memory.right)+'px'; }
+  });
 }
 
 function formatTime(sec){ const m = Math.floor(sec/60).toString().padStart(2,"0"); const s=(sec%60).toString().padStart(2,"0"); return `${m}:${s}`; }
@@ -642,213 +822,123 @@ function renderPlay(){
   renderFrame(UI.play.left, pair.left);
   UI.play.right.innerHTML = "";
   if (State.answeredRightByIndex[i]) renderFrame(UI.play.right, pair.right);
-
   UI.play.options.innerHTML = "";
   const used = new Set(Object.values(State.answeredRightByIndex));
   State.tray.forEach(card=>{
     const key = keyOf(card); if(used.has(key)) return;
     const el = createElement('div', {class:"option", draggable:"true"});
-    if(card.type==="img"){
-      el.appendChild(createElement("img",{src:ASSETS.imagePath(card.value),alt:card.value, style:"width:100%;height:100%;object-fit:contain;"}));
-    } else {
-      // В опциях показываем текст слова — он читабелен и масштабируется
-      el.appendChild(createElement("div",{class:"word"}, card.value));
-    }
+    if(card.type==="img"){ el.appendChild(createElement("img",{src:ASSETS.imagePath(card.value),alt:card.value})); }
+    else { el.appendChild(createElement("div",{class:"word"}, card.value)); }
     el.dataset.key = key;
     el.addEventListener("dragstart", e=> e.dataTransfer.setData("text/plain", key));
     UI.play.options.appendChild(el);
   });
-
-  // Подстройка размера шрифта только для текстовых .word в опциях
   requestAnimationFrame(()=>{
-    UI.play.options.querySelectorAll('.option .word').forEach(w=>{
-      const parent = w.closest('.option');
-      if (parent) w.style.fontSize = computeFitFontSize(w, parent) + 'px';
-    });
+    const lw = UI.play.left.querySelector('.word');
+    const rw = UI.play.right.querySelector('.word');
+    if(lw && rw){ applyEqualWordSize(lw, UI.play.left, rw, UI.play.right); }
+    else if(lw){ lw.style.fontSize = computeFitFontSize(lw, UI.play.left)+'px'; }
+    else if(rw){ rw.style.fontSize = computeFitFontSize(rw, UI.play.right)+'px'; }
   });
 }
 
 function nextIndex(){ State.index = (State.index+1) % State.pairs.length; }
 function prevIndex(){ State.index = (State.index-1+State.pairs.length) % State.pairs.length; }
 
-// ---------- DnD / Pointer Events (мобильные и десктоп) ----------
-function rectContainsPoint(rect, x, y){
-  return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
-}
-
 function attachDnD(){
   const drop = UI.play.right;
-
-  // --- Desktop drag & drop (как было) ---
-  drop.addEventListener("dragover",(e)=>{
-    if(State.answeredRightByIndex[State.index]) return;
-    e.preventDefault();
-    drop.classList.add("over");
-  });
+  drop.addEventListener("dragover",(e)=>{ if(State.answeredRightByIndex[State.index]) return; e.preventDefault(); drop.classList.add("over"); });
   drop.addEventListener("dragleave",()=> drop.classList.remove("over"));
   drop.addEventListener("drop", async (e)=>{
     if(State.answeredRightByIndex[State.index]) return;
     e.preventDefault(); drop.classList.remove("over");
     const givenKey = e.dataTransfer.getData("text/plain");
-    await handleDrop(givenKey);
+    const correctKey = keyOf(State.pairs[State.index].right);
+    SFX.drop.currentTime=0; SFX.drop.play().catch(()=>{});
+    if(givenKey === correctKey){
+      State.answeredRightByIndex[State.index] = correctKey;
+      State.correct++; SFX.correct.currentTime=0; SFX.correct.play().catch(()=>{});
+      renderPlay(); await sleep(250);
+      if(Object.keys(State.answeredRightByIndex).length === State.pairs.length){
+        finishRound(); SFX.finish.currentTime=0; SFX.finish.play().catch(()=>{});
+      } else { nextIndex(); renderPlay(); }
+    } else {
+      State.wrong++; SFX.wrong.currentTime=0; SFX.wrong.play().catch(()=>{});
+      const overlay = createElement('div', {class:'bad-overlay'},
+        createElement('img',{class:'bad-img', src:'assets/ui/wrong_overlay.png', alt:'wrong'})
+      );
+      drop.appendChild(overlay);
+      await sleep(2000); // 2 seconds as requested
+      overlay.remove();
+      nextIndex(); renderPlay();
+    }
   });
-
-  // --- Pointer Events (универсально для мобильных) ---
-  const supportsPointer = window.PointerEvent != null;
-
-  if (supportsPointer) {
-    let activeKey = null;
-    let draggingEl = null;
-
-    UI.play.options.addEventListener('pointerdown', (e)=>{
-      const opt = e.target.closest(".option");
-      if(!opt) return;
-      activeKey = opt.dataset.key;
-      draggingEl = opt;
-      // увеличиваем hit-зону для тача
-      draggingEl.classList.add('dragging');
-      draggingEl.setPointerCapture?.(e.pointerId);
-    });
-
-    UI.play.options.addEventListener('pointermove', (e)=>{
-      if(!activeKey) return;
-      const rect = drop.getBoundingClientRect();
-      if (rectContainsPoint(rect, e.clientX, e.clientY)) {
-        drop.classList.add('over');
-      } else {
-        drop.classList.remove('over');
-      }
-    });
-
-    UI.play.options.addEventListener('pointerup', async (e)=>{
-      if(!activeKey) return;
-      const rect = drop.getBoundingClientRect();
-      const inside = rectContainsPoint(rect, e.clientX, e.clientY);
-      drop.classList.remove('over');
-      draggingEl && draggingEl.classList.remove('dragging');
-      const key = activeKey;
-      activeKey = null;
-      draggingEl = null;
-      if(inside){
-        await handleDrop(key);
-      }
-    });
-
-    // Предотвращаем «скролл во время перетаскивания» на андроиде/ios для области опций
-    UI.play.options.style.touchAction = 'manipulation';
-    drop.style.touchAction = 'manipulation';
-  } else {
-    // --- Fallback Touch (старые браузеры) ---
-    let touchKey = null;
-
-    UI.play.options.addEventListener("touchstart",(e)=>{
-      const opt = e.target.closest(".option");
-      if(!opt) return;
-      touchKey = opt.dataset.key;
-    }, {passive:true});
-
-    UI.play.options.addEventListener("touchmove",(e)=>{
-      const touch = e.changedTouches[0];
-      const dropRect = drop.getBoundingClientRect();
-      if(rectContainsPoint(dropRect, touch.clientX, touch.clientY)){
-        drop.classList.add('over');
-      } else {
-        drop.classList.remove('over');
-      }
-    }, {passive:true});
-
-    UI.play.options.addEventListener("touchend", async (e)=>{
-      if(!touchKey) return;
-      const touch = e.changedTouches[0];
-      const dropRect = drop.getBoundingClientRect();
-      const inside = rectContainsPoint(dropRect, touch.clientX, touch.clientY);
-      drop.classList.remove('over');
-      const key = touchKey;
-      touchKey = null;
-      if(inside){
-        await handleDrop(key);
-      }
-    });
-  }
 }
 
-async function handleDrop(givenKey){
-  if(State.answeredRightByIndex[State.index]) return;
-  const correctKey = keyOf(State.pairs[State.index].right);
-  SFX.drop.currentTime=0; SFX.drop.play().catch(()=>{});
-  if(givenKey === correctKey){
-    State.answeredRightByIndex[State.index] = correctKey;
-    State.correct++; SFX.correct.currentTime=0; SFX.correct.play().catch(()=>{});
-    renderPlay(); await sleep(250);
-    if(Object.keys(State.answeredRightByIndex).length === State.pairs.length){
-      finishRound(); SFX.finish.currentTime=0; SFX.finish.play().catch(()=>{});
-    } else { nextIndex(); renderPlay(); }
-  } else {
-    State.wrong++; SFX.wrong.currentTime=0; SFX.wrong.play().catch(()=>{});
-    const overlay = createElement('div', {class:'bad-overlay'},
-      createElement('img',{class:'bad-img', src:'assets/ui/wrong_overlay.png', alt:'wrong'})
-    );
-    UI.play.right.appendChild(overlay);
-    await sleep(2000);
-    overlay.remove();
-    nextIndex(); renderPlay();
-  }
+function finishRound(){
+  stopTimer();
+  UI.results.correct.textContent = State.correct.toString();
+  UI.results.wrong.textContent = State.wrong.toString();
+  showScreen("results");
+  removeMascot();
+  const container = document.querySelector('.container');
+  const mascot = document.createElement('img');
+  mascot.id='leoMascot'; mascot.src='assets/leo_mascot.png'; mascot.className='leo-mascot';
+  container.appendChild(mascot);
+  const phrases = ['Well done!','You are great!'];
+  const pText = phrases[ State.praiseFlip % 2 ];
+  State.praiseFlip++;
+  const praise = document.createElement('div');
+  praise.id='leoPraise'; praise.className='leo-praise'; praise.textContent = pText;
+  container.appendChild(praise);
+  setTimeout(()=>{ const p=document.getElementById('leoPraise'); if(p) p.remove(); }, 3000);
 }
 
-// Кнопки выхода (если функция где-то определена отдельно — обернулись)
-if (typeof bindExitButtons === 'function') {
-  bindExitButtons();
+UI.start.timeMode.addEventListener("change", ()=>{
+  const timed = UI.start.timeMode.value === "with-time";
+  UI.start.timeGroup.style.display = timed ? "" : "none";
+});
+UI.start.btnStart.addEventListener("click", async ()=>{
+  removeMascot(); unlockAudio();
+  State.mode = UI.start.mode.value;
+  State.count = parseInt(UI.start.pairCount.value,10)||2;
+  State.timed = UI.start.timeMode.value === "with-time";
+  State.seconds = parseInt(UI.start.roundSeconds.value,10)||60;
+  await loadPools(); buildPairs(); renderMemory(); showScreen("memory");
+});
+UI.memory.btnPrev.addEventListener("click", ()=>{ SFX.scroll.currentTime=0; SFX.scroll.play().catch(()=>{}); prevIndex(); renderMemory(); });
+UI.memory.btnNext.addEventListener("click", ()=>{ SFX.scroll.currentTime=0; SFX.scroll.play().catch(()=>{}); nextIndex(); renderMemory(); });
+UI.memory.btnDone.addEventListener("click", ()=>{ removeMascot(); State.index=0; renderPlay(); showScreen("play"); startTimer(); });
+UI.play.btnPrev.addEventListener("click", ()=>{ SFX.scroll.currentTime=0; SFX.scroll.play().catch(()=>{}); prevIndex(); renderPlay(); });
+UI.play.btnNext.addEventListener("click", ()=>{ SFX.scroll.currentTime=0; SFX.scroll.play().catch(()=>{}); nextIndex(); renderPlay(); });
+UI.results.btnRepeat.addEventListener("click", ()=>{ removeMascot(); buildPairs(); renderMemory(); showScreen("memory"); });
+UI.results.btnNew.addEventListener("click", ()=>{ removeMascot(); showScreen("start"); });
+
+// Exit confirmation modal
+function askExitConfirm(){
+  return new Promise((resolve)=>{
+    const modal = document.getElementById('exitModal');
+    const yes = document.getElementById('exitYes');
+    const no = document.getElementById('exitNo');
+    function cleanup(){ modal.classList.add('hidden'); yes.onclick = no.onclick = null; modal.onclick=null; document.removeEventListener('keydown', onKey); }
+    function onKey(e){ if(e.key==='Escape'){ cleanup(); resolve(false);} }
+    modal.classList.remove('hidden');
+    document.addEventListener('keydown', onKey);
+    yes.onclick = ()=>{ cleanup(); resolve(true); };
+    no.onclick = ()=>{ cleanup(); resolve(false); };
+    modal.onclick = (e)=>{ if(e.target===modal){ cleanup(); resolve(false);} };
+  });
 }
+function bindExitButtons(){
+  const e1 = document.getElementById('btnExitMemory');
+  if(e1){ e1.onclick = async ()=>{ if(await askExitConfirm()){ stopTimer(); removeMascot(); showScreen('start'); } }; }
+  const e2 = document.getElementById('btnExitPlay');
+  if(e2){ e2.onclick = async ()=>{ if(await askExitConfirm()){ stopTimer(); removeMascot(); showScreen('start'); } }; }
+}
+bindExitButtons();
 
 // DnD setup
 attachDnD();
-// === ENABLE BUTTONS & NAV ===
-// Безопасная привязка обработчиков ко всем кнопкам, чтобы они работали и на мобилках, и на десктопе.
-(function bindUIButtons(){
-  // helper
-  const on = (el, ev, fn) => { if (el) el.addEventListener(ev, fn, {passive:false}); };
-
-  // START screen
-  on(UI.start.btnStart, 'click', (e)=>{
-    e.preventDefault();
-    removeMascot(); // на всякий случай, чтобы overlay не перекрывал клики
-    startGame();
-  });
-
-  // MEMORY screen
-  on(UI.memory.btnPrev, 'click', (e)=>{ e.preventDefault(); State.index = (State.index-1+State.pairs.length)%State.pairs.length; renderMemory(); });
-  on(UI.memory.btnNext, 'click', (e)=>{ e.preventDefault(); State.index = (State.index+1)%State.pairs.length; renderMemory(); });
-  on(UI.memory.btnDone, 'click', (e)=>{
-    e.preventDefault();
-    showScreen('play');
-    renderPlay();
-    stopTimer();
-    startTimer();
-  });
-  on(UI.memory.btnExit, 'click', (e)=>{ e.preventDefault(); stopTimer(); showScreen('start'); });
-
-  // PLAY screen
-  on(UI.play.btnPrev, 'click', (e)=>{ e.preventDefault(); prevIndex(); renderPlay(); });
-  on(UI.play.btnNext, 'click', (e)=>{ e.preventDefault(); nextIndex(); renderPlay(); });
-  on(UI.play.btnExit, 'click', (e)=>{ e.preventDefault(); stopTimer(); showScreen('start'); });
-
-  // RESULTS screen
-  on(UI.results.btnRepeat, 'click', (e)=>{
-    e.preventDefault();
-    // повтор раунда с теми же настройками
-    buildPairs();
-    renderMemory();
-    showScreen('memory');
-  });
-  on(UI.results.btnNew, 'click', (e)=>{
-    e.preventDefault();
-    stopTimer();
-    showScreen('start');
-  });
-
-  // На всякий случай убедимся, что «маскот» не блокирует клики, если он где-то остался
-  const maybeOverlay = document.getElementById('leoMascot') || document.getElementById('leoMessage') || document.getElementById('leoPraise');
-  if (maybeOverlay) removeMascot();
-})();
 
 try{ window.startGame = startGame; }catch(_){ }
+
