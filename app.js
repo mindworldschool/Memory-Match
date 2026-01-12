@@ -92,13 +92,24 @@ const translations = {
   }
 };
 
-// стартовый язык: localStorage → селектор → язык браузера → ua
-let currentLang =
-  localStorage.getItem("mm_lang") ||
-  (document.getElementById("langSelect")?.value) ||
-  ((navigator.language || "").startsWith("ru") ? "ru" :
-   (navigator.language || "").startsWith("ua") ? "ua" : "en") || "ua";
+// === АВТО-ОПРЕДЕЛЕНИЕ ЯЗЫКА (URL > Saved > Browser) ===
+// 1. Читаем ?lang=... из ссылки
+const urlParams = new URLSearchParams(window.location.search);
+const urlLang = urlParams.get('lang');
 
+// 2. Логика приоритетов: Ссылка -> Сохраненный -> Браузер -> UA
+let currentLang = 'ua'; // Значение по умолчанию
+
+if (urlLang && ['en', 'ru', 'ua', 'es'].includes(urlLang)) {
+  currentLang = urlLang; // Ссылка главнее всего!
+} else {
+  currentLang =
+    localStorage.getItem("mm_lang") ||
+    (document.getElementById("langSelect")?.value) ||
+    ((navigator.language || "").startsWith("ru") ? "ru" :
+     (navigator.language || "").startsWith("ua") ? "ua" : "en") || "ua";
+}
+// =======================================================
 function applyTranslations() {
   const t = translations[currentLang];
 
