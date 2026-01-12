@@ -290,7 +290,7 @@ input:focus-visible{
   * { animation: none !important; transition: none !important; }
 }
 /* === ИСПРАВЛЕНИЕ: Шапка игры на мобильных (чтобы кнопки не налезали) === */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   
   /* 1. Разрешаем элементам в шапке переноситься на новую строку */
   .topbar {
