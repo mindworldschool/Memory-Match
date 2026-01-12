@@ -93,8 +93,10 @@ button.secondary{background:#fff;color:var(--brand-coral);border:2px solid var(-
 .flex-col{display:flex;flex-direction:column;gap:12px}
 .memory-stage,.play-stage{display:grid;gap:16px;grid-template-columns:1fr 320px}
 @media (max-width:900px){.memory-stage,.play-stage{grid-template-columns:1fr}}
+
+/* === ИСПРАВЛЕНИЕ: Карточки в две колонки на всех экранах === */
 .pair-view{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media (max-width:900px){.pair-view{grid-template-columns:1fr}}
+/* @media (max-width:900px){.pair-view{grid-template-columns:1fr}} <-- Эту строку мы УДАЛИЛИ, чтобы не было одной колонки */
 
 /* Рамка */
 .frame{
@@ -252,8 +254,13 @@ button.secondary{background:#fff;color:var(--brand-coral);border:2px solid var(-
   }
   .start-panel{ max-width: 100%; }
   .memory-stage, .play-stage{ grid-template-columns: 1fr; }
-  .pair-view{ grid-template-columns: 1fr; }
-  .frame{ min-height: clamp(180px, 45vw, 300px); }
+  
+  /* === ИСПРАВЛЕНИЕ: Карточки в две колонки на мобильном === */
+  .pair-view{ grid-template-columns: 1fr 1fr; } 
+
+  /* === ИСПРАВЛЕНИЕ: Уменьшаем высоту карточек, чтобы влезли === */
+  .frame{ min-height: clamp(140px, 40vw, 200px); }
+
   .nav-vertical{ flex-direction: row; justify-content: center; }
 }
 
