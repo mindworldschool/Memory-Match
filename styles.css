@@ -289,3 +289,51 @@ input:focus-visible{
 @media (prefers-reduced-motion: reduce){
   * { animation: none !important; transition: none !important; }
 }
+/* === ИСПРАВЛЕНИЕ: Шапка игры на мобильных (чтобы кнопки не налезали) === */
+@media (max-width: 600px) {
+  
+  /* 1. Разрешаем элементам в шапке переноситься на новую строку */
+  .topbar {
+    flex-wrap: wrap; 
+    height: auto; /* Высота теперь подстроится под контент */
+    gap: 8px; /* Чуть меньше отступы */
+  }
+
+  /* 2. Кнопка "Запомнил все" уходит вниз и растягивается на всю ширину */
+  #btnMemoryDone, 
+  #btnMemoryDone.secondary {
+    width: 100%;
+    order: 3; /* Принудительно ставим ее последней (внизу) */
+    margin-top: 2px;
+    white-space: normal; /* Разрешаем тексту внутри кнопки переноситься, если нужно */
+    line-height: 1.2;
+    padding: 8px;
+  }
+
+  /* 3. Кнопка "Выход" остается слева вверху */
+  .exit {
+    order: 1;
+    flex: 0 0 auto; /* Не сжимается */
+  }
+
+  /* 4. Надпись "Экран запоминания" справа вверху */
+  .topbar > div {
+    order: 2;
+    flex: 1; /* Занимает всё оставшееся место в первой строке */
+    text-align: right; /* Прижимаем к правому краю */
+    display: flex;
+    flex-direction: column; /* Бейдж и счетчик пар друг под другом */
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  /* 5. Уменьшаем размер шрифта бейджика и счетчика, чтобы влезало */
+  .badge {
+    font-size: 11px;
+    padding: 4px 8px;
+    white-space: nowrap; /* Текст бейджа в одну строку */
+  }
+  .meta {
+    font-size: 11px;
+  }
+}
